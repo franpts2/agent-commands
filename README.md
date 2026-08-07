@@ -60,9 +60,17 @@ expect.
 to overwrite an existing note or write through a symlink. Notes include the
 current repository, branch, worktree, and commit metadata when available.
 
-Supported kinds are `note`, `research`, `brainstorm`, `decision`, and
-`handoff`. If no kind is supplied, the command uses `note`. If no title is
-supplied, the agent derives a concise title from the current conversation.
+Supported kinds are `note`, `research`, `brainstorm`, `decision`,
+`implementation`, and `handoff`. If no kind is supplied, the command uses
+`note`. If no title is supplied, the agent derives a concise title from the
+current conversation.
+
+An `implementation` note is an execution-ready feature plan for another agent.
+It divides the work into verified iterations, identifies concrete files and
+changes when known, and tells the agent to reassess later steps as it learns
+from the repository. It also prohibits Git commands and operations unless the
+user explicitly requests them. The note includes a suggested commit message
+for the user without authorizing the agent to commit.
 
 New notes use `status: draft`. After a person revises and approves a note, they
 can change it to `status: reviewed`. `/read-docs` prioritizes reviewed notes as

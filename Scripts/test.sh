@@ -37,6 +37,9 @@ done
 
 grep -Fq -- '`status: draft`' "$ROOT/commands/write-doc.md"
 grep -Fq -- '`status: reviewed`' "$ROOT/commands/read-docs.md"
+grep -Fq -- '`implementation`' "$ROOT/commands/write-doc.md"
+grep -Fq -- 'must not run Git commands' "$ROOT/commands/write-doc.md"
+grep -Fq -- 'suggested commit message' "$ROOT/commands/write-doc.md"
 
 HOME="$HOME_DIR" XDG_CONFIG_HOME="$XDG_DIR" \
     "$ROOT/Scripts/install.sh" opencode claude codex

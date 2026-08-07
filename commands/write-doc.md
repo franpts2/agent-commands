@@ -22,9 +22,9 @@ Follow these rules:
    is an existing writable directory. Never write outside that root or follow
    a symlink that leaves it.
 3. Parse an optional first word as the kind when it is one of `note`,
-   `research`, `brainstorm`, `decision`, or `handoff`. Otherwise use `note`
-   and treat all arguments as the title. If no title remains, derive a short,
-   specific title from the current conversation.
+   `research`, `brainstorm`, `decision`, `implementation`, or `handoff`.
+   Otherwise use `note` and treat all arguments as the title. If no title
+   remains, derive a short, specific title from the current conversation.
 4. Collect repository metadata when available: repository name, repository
    root, current worktree name, branch, and 12-character commit ID. Metadata
    collection must not modify the repository.
@@ -43,6 +43,19 @@ Follow these rules:
    - `research`: context, findings, evidence, implications, open questions.
    - `brainstorm`: goal, ideas, tradeoffs, promising directions, next steps.
    - `decision`: context, decision, rationale, consequences, follow-ups.
+   - `implementation`: objective, current state, requirements and non-goals,
+     iterative implementation steps, verification, risks and open questions,
+     Git constraints, and a suggested commit message. Write this as an
+     execution-ready plan for another agent. Each ordered iteration must name
+     the relevant files or symbols when known, the exact changes to make, the
+     expected outcome, and focused checks to run before continuing. Instruct
+     the agent to inspect the result of each iteration, resolve failures, and
+     update the remaining steps when repository discoveries invalidate an
+     assumption. State explicitly that the agent must not run Git commands or
+     perform Git operations, including staging, committing, amending, rebasing,
+     merging, pushing, or creating or switching branches, unless the user
+     explicitly requests them. The suggested commit message is text only and
+     does not authorize a commit.
    - `handoff`: objective, completed work, current state, blockers, next steps.
    - `note`: context, notes, next steps.
 9. Include source file and line references when claims came from repository
