@@ -38,6 +38,8 @@ done
 grep -Fq -- '`status: draft`' "$ROOT/commands/write-doc.md"
 grep -Fq -- '`status: reviewed`' "$ROOT/commands/read-docs.md"
 grep -Fq -- '`implementation`' "$ROOT/commands/write-doc.md"
+grep -Fq -- 'stop after every iteration' "$ROOT/commands/write-doc.md"
+grep -Fq -- 'wait for explicit user approval' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'must not run Git commands' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'suggested commit message' "$ROOT/commands/write-doc.md"
 

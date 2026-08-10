@@ -51,11 +51,15 @@ Follow these rules:
      expected outcome, and focused checks to run before continuing. Instruct
      the agent to inspect the result of each iteration, resolve failures, and
      update the remaining steps when repository discoveries invalidate an
-     assumption. State explicitly that the agent must not run Git commands or
-     perform Git operations, including staging, committing, amending, rebasing,
-     merging, pushing, or creating or switching branches, unless the user
-     explicitly requests them. The suggested commit message is text only and
-     does not authorize a commit.
+     assumption. Require the agent to stop after every iteration, report the
+     changes and check results, and wait for explicit user approval before
+     starting the next iteration. The original request or approval of the plan
+     does not count as approval to continue between iterations. State
+     explicitly that the agent must not run Git commands or perform Git
+     operations, including staging, committing, amending, rebasing, merging,
+     pushing, or creating or switching branches, unless the user explicitly
+     requests them. The suggested commit message is text only and does not
+     authorize a commit.
    - `handoff`: objective, completed work, current state, blockers, next steps.
    - `note`: context, notes, next steps.
 9. Include source file and line references when claims came from repository

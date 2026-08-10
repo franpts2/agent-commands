@@ -68,9 +68,10 @@ current conversation.
 An `implementation` note is an execution-ready feature plan for another agent.
 It divides the work into verified iterations, identifies concrete files and
 changes when known, and tells the agent to reassess later steps as it learns
-from the repository. It also prohibits Git commands and operations unless the
-user explicitly requests them. The note includes a suggested commit message
-for the user without authorizing the agent to commit.
+from the repository. The agent must stop after every iteration and wait for
+explicit user approval before continuing. The note also prohibits Git commands
+and operations unless the user explicitly requests them. It includes a
+suggested commit message for the user without authorizing the agent to commit.
 
 New notes use `status: draft`. After a person revises and approves a note, they
 can change it to `status: reviewed`. `/read-docs` prioritizes reviewed notes as
