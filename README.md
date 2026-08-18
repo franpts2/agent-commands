@@ -60,10 +60,11 @@ expect.
 to overwrite an existing note or write through a symlink. Notes include the
 current repository, branch, worktree, and commit metadata when available.
 
-Supported kinds are `note`, `research`, `brainstorm`, `decision`,
-`implementation`, and `handoff`. If no kind is supplied, the command uses
-`note`. If no title is supplied, the agent derives a concise title from the
-current conversation.
+Supported kinds are `note`, `research`, `brainstorm`, `explanation`,
+`decision`, `implementation`, and `handoff`. Use `explanation` to document a
+clear explanation of a particular topic. If no kind is supplied, the command
+uses `note`. If no title is supplied, the agent derives a concise title from
+the current conversation.
 
 An `implementation` note is an execution-ready feature plan for another agent.
 It divides the work into verified iterations, identifies concrete files and

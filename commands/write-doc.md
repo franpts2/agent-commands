@@ -22,9 +22,9 @@ Follow these rules:
    is an existing writable directory. Never write outside that root or follow
    a symlink that leaves it.
 3. Parse an optional first word as the kind when it is one of `note`,
-   `research`, `brainstorm`, `decision`, `implementation`, or `handoff`.
-   Otherwise use `note` and treat all arguments as the title. If no title
-   remains, derive a short, specific title from the current conversation.
+   `research`, `brainstorm`, `explanation`, `decision`, `implementation`, or
+   `handoff`. Otherwise use `note` and treat all arguments as the title. If no
+   title remains, derive a short, specific title from the current conversation.
 4. Collect repository metadata when available: repository name, repository
    root, current worktree name, branch, and 12-character commit ID. Metadata
    collection must not modify the repository.
@@ -42,6 +42,8 @@ Follow these rules:
 8. Structure the body for the selected kind:
    - `research`: context, findings, evidence, implications, open questions.
    - `brainstorm`: goal, ideas, tradeoffs, promising directions, next steps.
+   - `explanation`: topic overview, key concepts, how it works, concrete
+     examples, caveats and common misconceptions, related topics.
    - `decision`: context, decision, rationale, consequences, follow-ups.
    - `implementation`: objective, current state, requirements and non-goals,
      iterative implementation steps, verification, risks and open questions,
