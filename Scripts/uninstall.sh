@@ -35,7 +35,7 @@ for target in "$@"; do
         exit 64
     fi
 
-    for name in link-docs read-docs write-doc; do
+    for name in ammend-push link-docs read-docs write-doc; do
         destination_file="$destination_dir/$name.md"
         if [ -f "$destination_file" ] && [ ! -L "$destination_file" ] && \
             grep -Fq -- "$MARKER" "$destination_file"; then

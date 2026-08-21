@@ -43,6 +43,11 @@ grep -Fq -- 'stop after every iteration' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'wait for explicit user approval' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'must not run Git commands' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'suggested commit message' "$ROOT/commands/write-doc.md"
+grep -Fq -- 'git add -A' "$ROOT/commands/ammend-push.md"
+grep -Fq -- 'git commit --amend' "$ROOT/commands/ammend-push.md"
+grep -Fq -- 'Co-authored-by' "$ROOT/commands/ammend-push.md"
+grep -Fq -- 'git push' "$ROOT/commands/ammend-push.md"
+grep -Fq -- '--force-with-lease' "$ROOT/commands/ammend-push.md"
 
 HOME="$HOME_DIR" XDG_CONFIG_HOME="$XDG_DIR" \
     "$ROOT/Scripts/install.sh" opencode claude codex
@@ -53,7 +58,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in link-docs read-docs write-doc; do
+    for name in ammend-push link-docs read-docs write-doc; do
         cmp -s -- "$ROOT/commands/$name.md" "$installed_dir/$name.md"
     done
 done
@@ -65,7 +70,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in link-docs read-docs write-doc; do
+    for name in ammend-push link-docs read-docs write-doc; do
         test ! -e "$installed_dir/$name.md"
     done
 done

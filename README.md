@@ -3,8 +3,9 @@
 [![Test](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml/badge.svg)](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Small, prompt-only commands for connecting a Git repository to an Obsidian
-vault. There is no MCP server, daemon, package dependency, or network service.
+Small, prompt-only commands for repository documentation and routine Git
+workflows. There is no MCP server, daemon, package dependency, or network
+service.
 
 ## Commands
 
@@ -13,6 +14,7 @@ vault. There is no MCP server, daemon, package dependency, or network service.
 | `/link-docs <vault-path>` | Save the vault path in the repository's local Git config. |
 | `/read-docs [topic]` | Find and read relevant Markdown notes without modifying the vault. |
 | `/write-doc [kind] [title]` | Create a new note under `_Agent Inbox`. |
+| `/ammend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
 
 The mapping is stored as `agentDocs.path` in the repository's common Git
 config. It is private to the local clone, is not committed, and is shared by
@@ -48,6 +50,7 @@ Then, from any worktree of a repository:
 /link-docs /absolute/path/to/Obsidian Vault
 /read-docs authentication decisions
 /write-doc research authentication findings
+/ammend-push
 ```
 
 The agent may ask for permission to access the vault because it is outside the
@@ -79,13 +82,21 @@ can change it to `status: reviewed`. `/read-docs` prioritizes reviewed notes as
 higher-authority documentation while still checking whether their claims are
 current and consistent with other sources.
 
+## Amend And Push Behavior
+
+`/ammend-push` stages all current changes with `git add -A`, amends `HEAD` while
+preserving its author and message, and does not add `Co-authored-by` trailers.
+It requires a configured upstream and pushes with `--force-with-lease`, never
+plain `--force`.
+
 ## Privacy And Safety
 
 - `/read-docs` reads Markdown only and treats note content as reference data,
   not as instructions to execute.
 - `/write-doc` excludes credentials, tokens, environment values, and raw chat
   transcripts.
-- No command makes network requests.
+- The documentation commands make no network requests. `/ammend-push` pushes
+  the amended commit to the branch's configured Git upstream.
 - The vault path remains in `.git/config` for the local clone.
 - Existing files and unmanaged command definitions are never replaced.
 
