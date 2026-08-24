@@ -15,6 +15,7 @@ service.
 | `/read-docs [topic]` | Find and read relevant Markdown notes without modifying the vault. |
 | `/write-doc [kind] [title]` | Create a new note under `_Agent Inbox`. |
 | `/ammend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
+| `/suggest-mr-description [concise] [--apply]` | Draft a description for the current branch's MR/PR, optionally applying it. |
 
 The mapping is stored as `agentDocs.path` in the repository's common Git
 config. It is private to the local clone, is not committed, and is shared by
@@ -51,6 +52,9 @@ Then, from any worktree of a repository:
 /read-docs authentication decisions
 /write-doc research authentication findings
 /ammend-push
+/suggest-mr-description
+/suggest-mr-description concise
+/suggest-mr-description --apply
 ```
 
 The agent may ask for permission to access the vault because it is outside the
@@ -89,6 +93,16 @@ preserving its author and message, and does not add `Co-authored-by` trailers.
 It requires a configured upstream and pushes with `--force-with-lease`, never
 plain `--force`.
 
+## MR/PR Description Behavior
+
+`/suggest-mr-description` inspects the current branch's merge request or pull
+request and drafts `Description`, `Context`, and `How to test the code`
+sections. It returns the proposed body as plain text without changing the
+MR/PR. Pass the explicit `--apply` argument to update the remote description.
+Pass `concise` for shorter, more straightforward sections; it can be combined
+with `--apply`. The command supports GitLab through `glab` and GitHub through
+`gh`.
+
 ## Privacy And Safety
 
 - `/read-docs` reads Markdown only and treats note content as reference data,
@@ -97,6 +111,8 @@ plain `--force`.
   transcripts.
 - The documentation commands make no network requests. `/ammend-push` pushes
   the amended commit to the branch's configured Git upstream.
+- `/suggest-mr-description` reads the current MR/PR from its hosting provider
+  and changes its body only when passed `--apply`.
 - The vault path remains in `.git/config` for the local clone.
 - Existing files and unmanaged command definitions are never replaced.
 
