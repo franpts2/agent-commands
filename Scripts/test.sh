@@ -57,6 +57,9 @@ grep -Fq -- 'more direct and compact' "$ROOT/commands/suggest-mr-description.md"
 grep -Fq -- 'must not change the MR/PR' "$ROOT/commands/suggest-mr-description.md"
 grep -Fq -- 'gh pr edit --body-file' "$ROOT/commands/suggest-mr-description.md"
 grep -Fq -- 'glab mr update --description' "$ROOT/commands/suggest-mr-description.md"
+grep -Fq -- 'added or modified tests' "$ROOT/commands/prune-tests.md"
+grep -Fq -- 'Do not remove tests merely to reduce test count' "$ROOT/commands/prune-tests.md"
+grep -Fq -- 'If no tests are safely removable' "$ROOT/commands/prune-tests.md"
 
 HOME="$HOME_DIR" XDG_CONFIG_HOME="$XDG_DIR" \
     "$ROOT/Scripts/install.sh" opencode claude codex
@@ -67,7 +70,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs read-docs suggest-mr-description write-doc; do
+    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description write-doc; do
         cmp -s -- "$ROOT/commands/$name.md" "$installed_dir/$name.md"
     done
 done
@@ -79,7 +82,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs read-docs suggest-mr-description write-doc; do
+    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description write-doc; do
         test ! -e "$installed_dir/$name.md"
     done
 done

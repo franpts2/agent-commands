@@ -3,7 +3,7 @@
 [![Test](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml/badge.svg)](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Small, prompt-only commands for repository documentation and routine Git
+Small, prompt-only commands for repository documentation and development
 workflows. There is no MCP server, daemon, package dependency, or network
 service.
 
@@ -16,6 +16,7 @@ service.
 | `/write-doc [kind] [title]` | Create a new note under `_Agent Inbox`. |
 | `/ammend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
 | `/suggest-mr-description [concise] [--apply]` | Draft a description for the current branch's MR/PR, optionally applying it. |
+| `/prune-tests [feature scope]` | Remove redundant or unnecessary tests from the current feature without weakening meaningful coverage. |
 
 The mapping is stored as `agentDocs.path` in the repository's common Git
 config. It is private to the local clone, is not committed, and is shared by
@@ -55,6 +56,8 @@ Then, from any worktree of a repository:
 /suggest-mr-description
 /suggest-mr-description concise
 /suggest-mr-description --apply
+/prune-tests
+/prune-tests authentication refresh
 ```
 
 The agent may ask for permission to access the vault because it is outside the
@@ -103,6 +106,15 @@ Pass `concise` for shorter, more straightforward sections; it can be combined
 with `--apply`. The command supports GitLab through `glab` and GitHub through
 `gh`.
 
+## Test Pruning Behavior
+
+`/prune-tests` reviews tests added or modified for the current feature and
+removes only those that demonstrably duplicate stronger coverage or protect no
+meaningful observable behavior. It preserves distinct requirements,
+regressions, branches, boundaries, error paths, security properties, and public
+contracts. Pass an optional feature scope when the current conversation and
+repository diff do not identify the feature clearly.
+
 ## Privacy And Safety
 
 - `/read-docs` reads Markdown only and treats note content as reference data,
@@ -113,6 +125,8 @@ with `--apply`. The command supports GitLab through `glab` and GitHub through
   the amended commit to the branch's configured Git upstream.
 - `/suggest-mr-description` reads the current MR/PR from its hosting provider
   and changes its body only when passed `--apply`.
+- `/prune-tests` limits edits to tests in the current feature scope by default
+  and keeps uncertain or uniquely valuable coverage.
 - The vault path remains in `.git/config` for the local clone.
 - Existing files and unmanaged command definitions are never replaced.
 
