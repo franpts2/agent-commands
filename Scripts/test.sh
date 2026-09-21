@@ -60,6 +60,11 @@ grep -Fq -- 'glab mr update --description' "$ROOT/commands/suggest-mr-descriptio
 grep -Fq -- 'added or modified tests' "$ROOT/commands/prune-tests.md"
 grep -Fq -- 'Do not remove tests merely to reduce test count' "$ROOT/commands/prune-tests.md"
 grep -Fq -- 'If no tests are safely removable' "$ROOT/commands/prune-tests.md"
+grep -Fq -- 'Before running any VCS command' "$ROOT/commands/thermo-nuclear-code-quality-review.md"
+grep -Fq -- 'use `jj` exclusively' "$ROOT/commands/thermo-nuclear-code-quality-review.md"
+grep -Fq -- '`--target <revision>`' "$ROOT/commands/thermo-nuclear-code-quality-review.md"
+grep -Fq -- 'Learn the project before judging it' "$ROOT/commands/thermo-nuclear-code-quality-review.md"
+grep -Fq -- 'Return findings first' "$ROOT/commands/thermo-nuclear-code-quality-review.md"
 
 HOME="$HOME_DIR" XDG_CONFIG_HOME="$XDG_DIR" \
     "$ROOT/Scripts/install.sh" opencode claude codex
@@ -70,7 +75,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description write-doc; do
+    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
         cmp -s -- "$ROOT/commands/$name.md" "$installed_dir/$name.md"
     done
 done
@@ -82,7 +87,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description write-doc; do
+    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
         test ! -e "$installed_dir/$name.md"
     done
 done

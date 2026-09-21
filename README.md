@@ -26,6 +26,7 @@ The command files instruct the selected coding agent how to behave. Safety const
 | `/ammend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
 | `/suggest-mr-description [concise] [--apply]` | Draft a description for the current branch's MR/PR, optionally applying it. |
 | `/prune-tests [feature scope]` | Remove redundant or unnecessary tests from the current feature without weakening meaningful coverage. |
+| `/thermo-nuclear-code-quality-review [--target <revision>] [scope]` | Run a strict, project-aware maintainability review of the current changes. |
 
 The mapping is stored as `agentDocs.path` in the repository's common Git
 config. It is private to the local clone, is not committed, and is shared by
@@ -71,6 +72,9 @@ Then, from any worktree of a repository:
 /suggest-mr-description --apply
 /prune-tests
 /prune-tests authentication refresh
+/thermo-nuclear-code-quality-review
+/thermo-nuclear-code-quality-review --target origin/staging
+/thermo-nuclear-code-quality-review src/auth
 ```
 
 The agent may ask for permission to access the vault because it is outside the
@@ -128,6 +132,15 @@ regressions, branches, boundaries, error paths, security properties, and public
 contracts. Pass an optional feature scope when the current conversation and
 repository diff do not identify the feature clearly.
 
+## Thermo-Nuclear Review Behavior
+
+`/thermo-nuclear-code-quality-review` performs a read-only maintainability
+review against an explicit `--target` revision or an inferred local default
+branch. It checks for Jujutsu before Git, includes committed and local changes,
+and learns each repository's guidance, tooling, architecture, and neighboring
+patterns before reporting structural findings. Optional trailing arguments can
+narrow the review to a path or feature.
+
 ## Privacy And Safety
 
 - `/read-docs` reads Markdown only and treats note content as reference data,
@@ -140,6 +153,8 @@ repository diff do not identify the feature clearly.
   and changes its body only when passed `--apply`.
 - `/prune-tests` limits edits to tests in the current feature scope by default
   and keeps uncertain or uniquely valuable coverage.
+- `/thermo-nuclear-code-quality-review` is read-only and does not fetch, edit,
+  commit, or update remote state.
 - The vault path remains in `.git/config` for the local clone.
 - Existing files and unmanaged command definitions are never replaced.
 
