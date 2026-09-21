@@ -1,11 +1,20 @@
-# Agent Docs Commands
+# Agent Docs Commands - Prompt Workflows for Coding Agents
 
 [![Test](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml/badge.svg)](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Small, prompt-only commands for repository documentation and development
-workflows. There is no MCP server, daemon, package dependency, or network
-service.
+<div align="left">
+    <img src="https://img.shields.io/badge/OpenCode-111827?style=for-the-badge" alt="OpenCode"/>
+    <img src="https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Code"/>
+    <img src="https://img.shields.io/badge/Codex-000000?style=for-the-badge&logo=openai&logoColor=white" alt="Codex"/>
+    <img src="https://img.shields.io/badge/Shell-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" alt="Shell"/>
+</div>
+
+## About
+
+Agent Docs Commands is a dependency-free collection of prompt commands for repository documentation and development workflows. It installs Markdown definitions for OpenCode, Claude Code, and Codex; there is no MCP server, daemon, package dependency, or network service.
+
+The command files instruct the selected coding agent how to behave. Safety constraints inside prompts are not an operating-system sandbox and still depend on the agent honoring those instructions.
 
 ## Commands
 
@@ -23,6 +32,8 @@ config. It is private to the local clone, is not committed, and is shared by
 all linked worktrees of that clone.
 
 ## Install
+
+Requirements: Git, a POSIX shell, and at least one supported coding agent. `gh` or `glab` is required only when using `/suggest-mr-description` with a hosted pull or merge request.
 
 OpenCode is the default target:
 
@@ -43,6 +54,8 @@ Installed locations:
 | OpenCode | `~/.config/opencode/commands` | `/link-docs` |
 | Claude Code | `~/.claude/commands` | `/link-docs` |
 | Codex | `~/.codex/prompts` | `/prompts:link-docs` |
+
+OpenCode honors `${XDG_CONFIG_HOME}/opencode/commands` when `XDG_CONFIG_HOME` is set.
 
 Restart the agent after installation so it reloads the command files.
 
@@ -149,6 +162,16 @@ Run the self-contained test suite:
 
 Tests use temporary home, repository, worktree, and vault directories and do
 not modify live agent configuration.
+
+## Project Structure
+
+```text
+commands/                    Prompt command definitions
+Scripts/install.sh           Marker-aware multi-agent installer
+Scripts/uninstall.sh         Managed command removal
+Scripts/test.sh              Prompt and installer verification
+.github/workflows/test.yml   GitHub Actions test workflow
+```
 
 ## License
 

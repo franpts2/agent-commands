@@ -54,7 +54,7 @@ for target in "$@"; do
             continue
         fi
 
-        install -m 0644 -- "$source_file" "$destination_file"
+        install -m 0644 "$source_file" "$destination_file"
         printf 'Installed %s command: %s\n' "$target" "$destination_file"
     done
 done
