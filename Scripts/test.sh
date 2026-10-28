@@ -48,6 +48,13 @@ grep -Fq -- 'git commit --amend' "$ROOT/commands/ammend-push.md"
 grep -Fq -- 'Co-authored-by' "$ROOT/commands/ammend-push.md"
 grep -Fq -- 'git push' "$ROOT/commands/ammend-push.md"
 grep -Fq -- '--force-with-lease' "$ROOT/commands/ammend-push.md"
+grep -Fq -- 'Create one or more incremental conventional commits' "$ROOT/commands/make-commits.md"
+grep -Fq -- '`<type>(<scope>): <subject>`' "$ROOT/commands/make-commits.md"
+grep -Fq -- 'Do not add a body' "$ROOT/commands/make-commits.md"
+grep -Fq -- 'git add -p' "$ROOT/commands/make-commits.md"
+grep -Fq -- 'git commit -m "<subject>"' "$ROOT/commands/make-commits.md"
+grep -Fq -- 'Do not push' "$ROOT/commands/make-commits.md"
+grep -Fq -- '`Co-authored-by`' "$ROOT/commands/make-commits.md"
 grep -Fq -- '`Description`' "$ROOT/commands/suggest-mr-description.md"
 grep -Fq -- '`Context`' "$ROOT/commands/suggest-mr-description.md"
 grep -Fq -- '`How to test the code`' "$ROOT/commands/suggest-mr-description.md"
@@ -75,7 +82,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
+    for name in ammend-push link-docs make-commits prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
         cmp -s -- "$ROOT/commands/$name.md" "$installed_dir/$name.md"
     done
 done
@@ -87,7 +94,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
+    for name in ammend-push link-docs make-commits prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
         test ! -e "$installed_dir/$name.md"
     done
 done

@@ -24,6 +24,7 @@ The command files instruct the selected coding agent how to behave. Safety const
 | `/read-docs [topic]` | Find and read relevant Markdown notes without modifying the vault. |
 | `/write-doc [kind] [title]` | Create a new note under `_Agent Inbox`. |
 | `/ammend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
+| `/make-commits [constraints]` | Create incremental conventional commits for this session's changes. |
 | `/suggest-mr-description [concise] [--apply]` | Draft a description for the current branch's MR/PR, optionally applying it. |
 | `/prune-tests [feature scope]` | Remove redundant or unnecessary tests from the current feature without weakening meaningful coverage. |
 | `/thermo-nuclear-code-quality-review [--target <revision>] [scope]` | Run a strict, project-aware maintainability review of the current changes. |
@@ -67,6 +68,8 @@ Then, from any worktree of a repository:
 /read-docs authentication decisions
 /write-doc research authentication findings
 /ammend-push
+/make-commits
+/make-commits src/auth
 /suggest-mr-description
 /suggest-mr-description concise
 /suggest-mr-description --apply
@@ -113,6 +116,22 @@ preserving its author and message, and does not add `Co-authored-by` trailers.
 It requires a configured upstream and pushes with `--force-with-lease`, never
 plain `--force`.
 
+## Commit Behavior
+
+`/make-commits` creates incremental conventional commits for the changes the
+agent made in the current session. It commits only paths and hunks attributable
+to that session, stopping to ask when a change cannot be confidently attributed
+or when the worktree contains likely secrets. Optional arguments can constrain
+paths, types, scopes, or grouping.
+
+Each commit contains one coherent change, and files can be split by hunk when
+needed. Messages are a single conventional commit subject line such as
+`feat(auth): add refresh token rotation` or `docs: update install steps`, with
+no body, description, footers, or co-author trailer. The agent uses a scope only
+when the repository's recent history uses scopes consistently, and otherwise
+omits it. The command creates local commits only: it never pushes, fetches, tags,
+amends existing commits, or bypasses Git hooks.
+
 ## MR/PR Description Behavior
 
 `/suggest-mr-description` inspects the current branch's merge request or pull
@@ -149,6 +168,8 @@ narrow the review to a path or feature.
   transcripts.
 - The documentation commands make no network requests. `/ammend-push` pushes
   the amended commit to the branch's configured Git upstream.
+- `/make-commits` creates local commits only. It commits nothing outside the
+  current session's changes and never pushes or changes remote state.
 - `/suggest-mr-description` reads the current MR/PR from its hosting provider
   and changes its body only when passed `--apply`.
 - `/prune-tests` limits edits to tests in the current feature scope by default
