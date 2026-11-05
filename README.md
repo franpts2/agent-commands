@@ -1,4 +1,4 @@
-# Agent Docs Commands - Prompt Workflows for Coding Agents
+# Agent Commands - Prompt Workflows for Coding Agents
 
 [![Test](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml/badge.svg)](https://github.com/franpts2/agent-docs-commands/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
