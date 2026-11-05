@@ -1,0 +1,46 @@
+name: Feature request
+description: Propose a new command or an improvement to an existing one.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow is difficult or unsafe today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the command behavior, arguments, and outputs.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: dropdown
+    id: agents
+    attributes:
+      label: Agents
+      description: Which agents should support this?
+      multiple: true
+      options:
+        - OpenCode
+        - Claude Code
+        - Codex
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: This stays dependency-free and works with a POSIX shell.
+          required: true
+        - label: I searched existing issues for a similar request.
+          required: true

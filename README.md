@@ -23,7 +23,7 @@ The command files instruct the selected coding agent how to behave. Safety const
 | `/link-docs <vault-path>` | Save the vault path in the repository's local Git config. |
 | `/read-docs [topic]` | Find and read relevant Markdown notes without modifying the vault. |
 | `/write-doc [kind] [title]` | Create a new note under `_Agent Inbox`. |
-| `/ammend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
+| `/amend-push` | Stage all changes, amend the current commit without adding co-authors, and push safely. |
 | `/make-commits [constraints]` | Create incremental conventional commits for this session's changes. |
 | `/suggest-mr-description [concise] [--apply]` | Draft a description for the current branch's MR/PR, optionally applying it. |
 | `/prune-tests [feature scope]` | Remove redundant or unnecessary tests from the current feature without weakening meaningful coverage. |
@@ -35,7 +35,7 @@ all linked worktrees of that clone.
 
 ## Install
 
-Requirements: Git, a POSIX shell, and at least one supported coding agent. `gh` or `glab` is required only when using `/suggest-mr-description` with a hosted pull or merge request.
+Requirements: Git, a POSIX shell, and at least one supported coding agent. `gh` or `glab` is required only when using `/suggest-mr-description` with a hosted pull or merge request. The scripts target POSIX `sh`; CI runs on Linux, and macOS and Windows through WSL or Git Bash use the same commands.
 
 OpenCode is the default target:
 
@@ -67,7 +67,7 @@ Then, from any worktree of a repository:
 /link-docs /absolute/path/to/Obsidian Vault
 /read-docs authentication decisions
 /write-doc research authentication findings
-/ammend-push
+/amend-push
 /make-commits
 /make-commits src/auth
 /suggest-mr-description
@@ -111,7 +111,7 @@ current and consistent with other sources.
 
 ## Amend And Push Behavior
 
-`/ammend-push` stages all current changes with `git add -A`, amends `HEAD` while
+`/amend-push` stages all current changes with `git add -A`, amends `HEAD` while
 preserving its author and message, and does not add `Co-authored-by` trailers.
 It requires a configured upstream and pushes with `--force-with-lease`, never
 plain `--force`.
@@ -166,7 +166,7 @@ narrow the review to a path or feature.
   not as instructions to execute.
 - `/write-doc` excludes credentials, tokens, environment values, and raw chat
   transcripts.
-- The documentation commands make no network requests. `/ammend-push` pushes
+- The documentation commands make no network requests. `/amend-push` pushes
   the amended commit to the branch's configured Git upstream.
 - `/make-commits` creates local commits only. It commits nothing outside the
   current session's changes and never pushes or changes remote state.
@@ -199,14 +199,31 @@ Run the self-contained test suite:
 Tests use temporary home, repository, worktree, and vault directories and do
 not modify live agent configuration.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Run `./Scripts/test.sh` before opening a
+pull request, and update the README, tests, and uninstaller when adding or
+renaming a command.
+
+## Security
+
+The command files are prompt instructions, not an operating-system sandbox.
+Read [SECURITY.md](SECURITY.md) before using commands that read outside the
+repository or push changes, and report vulnerabilities privately rather than in
+a public issue.
+
 ## Project Structure
 
 ```text
-commands/                    Prompt command definitions
-Scripts/install.sh           Marker-aware multi-agent installer
-Scripts/uninstall.sh         Managed command removal
-Scripts/test.sh              Prompt and installer verification
-.github/workflows/test.yml   GitHub Actions test workflow
+commands/                          Prompt command definitions
+Scripts/install.sh                 Marker-aware multi-agent installer
+Scripts/uninstall.sh               Managed command removal
+Scripts/test.sh                    Prompt and installer verification
+.github/workflows/test.yml         GitHub Actions test workflow
+.github/ISSUE_TEMPLATE/            Issue forms
+.github/pull_request_template.md   Pull request checklist
+CONTRIBUTING.md                    Development and contribution guidance
+SECURITY.md                        Security policy and reporting
 ```
 
 ## License

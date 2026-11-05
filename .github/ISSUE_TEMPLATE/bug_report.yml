@@ -1,0 +1,80 @@
+name: Bug report
+description: Report a problem with a command, the installer, or the test suite.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets, tokens, private paths, or raw transcripts.
+        Report vulnerabilities privately using the Security link instead.
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options:
+        - OpenCode
+        - Claude Code
+        - Codex
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: The commit, tag, or install date you are using.
+      placeholder: main at abc1234
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system and shell
+      placeholder: macOS 15, zsh 5.9
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command or script
+      description: The slash command or script that failed.
+      placeholder: /write-doc
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: The smallest sequence that reproduces the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Redact paths, credentials, and repository contents.
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I removed secrets, tokens, and private data from this report.
+          required: true
+        - label: I searched existing issues for the same problem.
+          required: true

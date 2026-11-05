@@ -43,11 +43,11 @@ grep -Fq -- 'stop after every iteration' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'wait for explicit user approval' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'must not run Git commands' "$ROOT/commands/write-doc.md"
 grep -Fq -- 'suggested commit message' "$ROOT/commands/write-doc.md"
-grep -Fq -- 'git add -A' "$ROOT/commands/ammend-push.md"
-grep -Fq -- 'git commit --amend' "$ROOT/commands/ammend-push.md"
-grep -Fq -- 'Co-authored-by' "$ROOT/commands/ammend-push.md"
-grep -Fq -- 'git push' "$ROOT/commands/ammend-push.md"
-grep -Fq -- '--force-with-lease' "$ROOT/commands/ammend-push.md"
+grep -Fq -- 'git add -A' "$ROOT/commands/amend-push.md"
+grep -Fq -- 'git commit --amend' "$ROOT/commands/amend-push.md"
+grep -Fq -- 'Co-authored-by' "$ROOT/commands/amend-push.md"
+grep -Fq -- 'git push' "$ROOT/commands/amend-push.md"
+grep -Fq -- '--force-with-lease' "$ROOT/commands/amend-push.md"
 grep -Fq -- 'Create one or more incremental conventional commits' "$ROOT/commands/make-commits.md"
 grep -Fq -- '`<type>(<scope>): <subject>`' "$ROOT/commands/make-commits.md"
 grep -Fq -- 'Do not add a body' "$ROOT/commands/make-commits.md"
@@ -82,7 +82,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs make-commits prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
+    for name in amend-push link-docs make-commits prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
         cmp -s -- "$ROOT/commands/$name.md" "$installed_dir/$name.md"
     done
 done
@@ -94,7 +94,7 @@ for installed_dir in \
     "$XDG_DIR/opencode/commands" \
     "$HOME_DIR/.claude/commands" \
     "$HOME_DIR/.codex/prompts"; do
-    for name in ammend-push link-docs make-commits prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
+    for name in amend-push link-docs make-commits prune-tests read-docs suggest-mr-description thermo-nuclear-code-quality-review write-doc; do
         test ! -e "$installed_dir/$name.md"
     done
 done
